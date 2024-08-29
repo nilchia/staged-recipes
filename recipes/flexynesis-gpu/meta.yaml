@@ -1,0 +1,71 @@
+{% set name = "flexynesis-gpu" %}
+{% set version = "0.2.10" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/f/flexynesis/flexynesis-{{ version }}.tar.gz
+  sha256: e6faea383272ee0bdd2792a2d11e4c1682d898eea09008990aa1132a93e72b34
+
+build:
+  noarch: python
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  entry_points:
+    - flexynesis = flexynesis.__main__:main
+
+requirements:
+  host:
+    - python >=3.11,<3.12
+    - setuptools
+    - pip
+  run:
+    - python >=3.11,<3.12
+    - matplotlib-base
+    - numpy
+    - pandas
+    - lightning
+    - pyyaml
+    - scikit-optimize
+    - scipy
+    - seaborn
+    - pytorch
+    - torchvision
+    - tqdm
+    - umap-learn
+    - rich
+    - captum
+    - ipywidgets
+    - pytorch_geometric
+    - ipykernel
+    - lifelines
+    - papermill
+    - scikit-survival
+    - python-louvain
+    - cuda-cupti
+    - cuda-nvrtc
+    - cuda-runtime
+test:
+  imports:
+    - flexynesis
+  requires:
+    - pip
+  commands:
+    - pip check
+    - flexynesis --help
+  
+about:
+  home: https://github.com/BIMSBbioinfo/flexynesis
+  summary: "A deep-learning-based multi-omics bulk sequencing data integration suite with a focus on (pre-)clinical endpoint prediction."
+  license: OTHER
+  license_file: LICENSE
+  description: "This is a deep-learning based multi-omics bulk sequencing data integration suite with a focus on (pre-)clinical endpoint prediction."
+  doc_url: https://bimsbstatic.mdc-berlin.de/akalin/buyar/flexynesis/site/
+  dev_url: https://github.com/BIMSBbioinfo/flexynesis/
+
+extra:
+  recipe-maintainers:
+    - bgruening
+    - nilchia
